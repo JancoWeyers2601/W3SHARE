@@ -1,0 +1,71 @@
+﻿@model IEnumerable<W3SHARE.Models.File>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlbumId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Url)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FileId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FileId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FileId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

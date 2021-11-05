@@ -22,13 +22,6 @@ namespace W3SHARE.Data
 
         public virtual DbSet<Access> Access { get; set; }
         public virtual DbSet<Album> Album { get; set; }
-        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<File> File { get; set; }
         public virtual DbSet<Metadata> Metadata { get; set; }
 
@@ -45,8 +38,6 @@ namespace W3SHARE.Data
         {
             modelBuilder.Entity<Access>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.AccessId)
                     .HasColumnName("AccessID")
                     .HasDefaultValueSql("(newid())");
@@ -58,8 +49,6 @@ namespace W3SHARE.Data
 
             modelBuilder.Entity<Album>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.AlbumId)
                     .HasColumnName("AlbumID")
                     .HasDefaultValueSql("(newid())");
@@ -75,107 +64,11 @@ namespace W3SHARE.Data
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<AspNetRoleClaims>(entity =>
-            {
-                entity.HasIndex(e => e.RoleId);
-
-                entity.Property(e => e.RoleId).IsRequired();
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetRoleClaims)
-                    .HasForeignKey(d => d.RoleId);
-            });
-
-            modelBuilder.Entity<AspNetRoles>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                entity.Property(e => e.Name).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedName).HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<AspNetUserClaims>(entity =>
-            {
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserClaims)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserLogins>(entity =>
-            {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.LoginProvider).HasMaxLength(128);
-
-                entity.Property(e => e.ProviderKey).HasMaxLength(128);
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserLogins)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserRoles>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
-
-                entity.HasIndex(e => e.RoleId);
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.RoleId);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserTokens>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-                entity.Property(e => e.LoginProvider).HasMaxLength(128);
-
-                entity.Property(e => e.Name).HasMaxLength(128);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-                entity.Property(e => e.Email).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-                entity.Property(e => e.UserName).HasMaxLength(256);
-            });
-
             modelBuilder.Entity<File>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.FileId)
+                    .HasColumnName("FileID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.AlbumId).HasColumnName("AlbumID");
 
@@ -187,10 +80,6 @@ namespace W3SHARE.Data
 
                 entity.Property(e => e.DateModified).HasColumnType("date");
 
-                entity.Property(e => e.FileId)
-                    .HasColumnName("FileID")
-                    .HasDefaultValueSql("(newid())");
-
                 entity.Property(e => e.Url)
                     .HasColumnName("URL")
                     .HasMaxLength(50)
@@ -201,7 +90,9 @@ namespace W3SHARE.Data
 
             modelBuilder.Entity<Metadata>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.MetadataId)
+                    .HasColumnName("Metadata_ID")
+                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.CaptureBy)
                     .HasMaxLength(50)
@@ -214,10 +105,6 @@ namespace W3SHARE.Data
                 entity.Property(e => e.GeoLocation)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.MetadataId)
-                    .HasColumnName("Metadata_ID")
-                    .HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.Tags)
                     .HasMaxLength(50)

@@ -1,0 +1,54 @@
+﻿@model W3SHARE.Models.Metadata
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Metadata</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MetadataId" />
+            <div class="form-group">
+                <label asp-for="FileId" class="control-label"></label>
+                <input asp-for="FileId" class="form-control" />
+                <span asp-validation-for="FileId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeoLocation" class="control-label"></label>
+                <input asp-for="GeoLocation" class="form-control" />
+                <span asp-validation-for="GeoLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaptureBy" class="control-label"></label>
+                <input asp-for="CaptureBy" class="form-control" />
+                <span asp-validation-for="CaptureBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaptureDate" class="control-label"></label>
+                <input asp-for="CaptureDate" class="form-control" />
+                <span asp-validation-for="CaptureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

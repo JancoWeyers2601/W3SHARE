@@ -9,7 +9,7 @@ namespace W3SHARE.Models
 {
     public partial class File
     {
-        public Guid? FileId { get; set; }
+        public Guid FileId { get; set; }
         public Guid? UserId { get; set; }
         public Guid? AlbumId { get; set; }
         public Guid? LastModifiedBy { get; set; }

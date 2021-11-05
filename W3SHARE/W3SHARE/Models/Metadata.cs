@@ -9,7 +9,7 @@ namespace W3SHARE.Models
 {
     public partial class Metadata
     {
-        public Guid? MetadataId { get; set; }
+        public Guid MetadataId { get; set; }
         public Guid? FileId { get; set; }
         public string GeoLocation { get; set; }
         public string Tags { get; set; }

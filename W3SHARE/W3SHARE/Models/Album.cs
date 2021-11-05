@@ -9,7 +9,7 @@ namespace W3SHARE.Models
 {
     public partial class Album
     {
-        public Guid? AlbumId { get; set; }
+        public Guid AlbumId { get; set; }
         public Guid? CreatedBy { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
