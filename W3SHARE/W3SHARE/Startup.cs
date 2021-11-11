@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using W3SHARE.Data;
@@ -30,13 +32,20 @@ namespace W3SHARE
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<W3SHAREProdContext>(options =>
-            //   options.UseSqlServer(
-            //       Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<W3SHAREContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSingleton<IFileProvider>(
+            new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
+            services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +70,13 @@ namespace W3SHARE
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -68,6 +84,8 @@ namespace W3SHARE
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+
         }
     }
 }

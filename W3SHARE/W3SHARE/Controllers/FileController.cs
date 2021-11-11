@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using W3SHARE.Data;
+using W3SHARE.Domain_Logic;
 using W3SHARE.Models;
+using W3SHARE.Repository;
+
 
 namespace W3SHARE.Controllers
 {
     public class FileController : Controller
     {
         private readonly W3SHAREContext _context;
+        private FileRepository fileRepository = new FileRepository();
 
         public FileController(W3SHAREContext context)
         {
@@ -22,7 +27,12 @@ namespace W3SHARE.Controllers
         // GET: File
         public async Task<IActionResult> Index()
         {
-            return View(await _context.File.ToListAsync());
+            
+            var curretlyLoggedInUserId = User.Claims.ToList()[0].Value;
+
+            var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
+
+            return View(results);
         }
 
         // GET: File/Details/5
@@ -59,8 +69,56 @@ namespace W3SHARE.Controllers
             if (ModelState.IsValid)
             {
                 file.FileId = Guid.NewGuid();
-                _context.Add(file);
-                await _context.SaveChangesAsync();
+
+                FileRepository fileRepository = new FileRepository();
+                var result = await fileRepository.CreateImageAsync(file);
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(file);
+        }
+
+        //CAPTURE 
+        public IActionResult Capture()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Capture([Bind("FileId,UserId,AlbumId,LastModifiedBy,Url,DateModified,ContentType,DateCreated,MetadataId,GeoLocation,Tags,CaptureBy,CaptureDate")] FileMetadataViewModel file , IFormFile formFile)
+        {
+            string path = @"C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\wwwroot\Images\Temp\Boy.png";
+            var curretlyLoggedInUserId = User.Claims.ToList()[0].Value;
+
+            if (ModelState.IsValid)
+            {
+                File fileModel = new File()
+                {
+                    FileId = Guid.NewGuid(),
+                    UserId = Guid.Parse(curretlyLoggedInUserId), //file.UserId,
+                    AlbumId = Guid.NewGuid(), //file.AlbumId,
+                    LastModifiedBy = file.LastModifiedBy,
+                    Url = file.Url,
+                    DateModified = file.DateModified,
+                    ContentType = file.ContentType,
+                    DateCreated = file.DateCreated
+                };
+
+                Metadata metadataModel = new Metadata()
+                {
+                    MetadataId = Guid.NewGuid(), //file.MetadataId,
+                    GeoLocation = file.GeoLocation,
+                    FileId = fileModel.FileId, // Keep in sync with File model
+                    Tags = file.Tags,
+                    CaptureBy = file.CaptureBy,
+                    CaptureDate = file.CaptureDate
+                };
+
+                FileDomainlogic fileDomainlogic = new FileDomainlogic();
+
+                var result = fileDomainlogic.UploadFile(fileModel,metadataModel,path);
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(file);
@@ -69,12 +127,18 @@ namespace W3SHARE.Controllers
         // GET: File/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
+            // Trek inligting van die image wat ons wil update
+            // GET = Voor update
             if (id == null)
             {
                 return NotFound();
             }
 
-            var file = await _context.File.FindAsync(id);
+            FileRepository fileRepository = new FileRepository();
+            var file = await fileRepository.GetImageByIdAsync(id);
+
+            //kopel aan repo
+
             if (file == null)
             {
                 return NotFound();
@@ -89,6 +153,9 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("FileId,UserId,AlbumId,LastModifiedBy,Url,DateModified,ContentType,DateCreated")] File file)
         {
+            // Veranderinge wat ons gemaak het
+            // POST = na update
+
             if (id != file.FileId)
             {
                 return NotFound();
@@ -98,8 +165,10 @@ namespace W3SHARE.Controllers
             {
                 try
                 {
-                    _context.Update(file);
-                    await _context.SaveChangesAsync();
+                    FileRepository fileRepository = new FileRepository();
+                    var result = await fileRepository.UpdateImageAsync(file);
+
+                    //update image async
                 }
                 catch (DbUpdateConcurrencyException)
                 {

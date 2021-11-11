@@ -446,3 +446,9 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\Metadata\Details.cshtml.g.cs
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\Metadata\Edit.cshtml.g.cs
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\Metadata\Index.cshtml.g.cs
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Azure.Core.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Azure.Storage.Blobs.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Azure.Storage.Common.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\System.Memory.Data.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\File\Capture.cshtml.g.cs
