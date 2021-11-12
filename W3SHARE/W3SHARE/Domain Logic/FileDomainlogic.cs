@@ -10,28 +10,31 @@ namespace W3SHARE.Domain_Logic
     public class FileDomainlogic
     {
 
-        public async Task <bool> UploadFile(File fileModel,Metadata metadataModel,string filePath)
+        public async Task <bool> UploadFile(File fileModel,Metadata metadataModel,Access accessModel,string filePath)
         {
             FileStorageRepository fileStorageRepository = new FileStorageRepository();
+
             FileRepository fileRepository = new FileRepository();
+            MetadataRepository metadataRepository = new MetadataRepository();
+            AccessRepository accessRepository = new AccessRepository();
 
             try
             {
-                //Upload file to blob
+                //Break up file path
                 var filePathSplit = filePath.Split("\\");
                 string fileName = filePathSplit[filePathSplit.Length - 1];
 
-                //Write image from db to blob
+                //Upload file to BLOB 
                 //string blobURL = fileStorageRepository.WriteFileToBlob(filePath,fileName);
-                //USE FOR DOWNLOAD bool downloaded = fileStorageRepository.DownloadFileFromBlob(fileName);
+                //bool downloaded = fileStorageRepository.DownloadFileFromBlob(fileName);
 
-                //Create file in DB 
-                
+                //Update DB
                 bool result = await fileRepository.CreateImageAsync(fileModel);
+                bool result_2 = await metadataRepository.CreateMetadataAsync(metadataModel);
+                bool result_3 = await accessRepository.CreateAccessAsync(accessModel);
 
-                //TODO add metadata here aswell (AS LINE 27)
 
-                return result;//result;
+                return result;
             }
             catch (Exception e)
             {

@@ -28,9 +28,11 @@ namespace W3SHARE.Controllers
         public async Task<IActionResult> Index()
         {
             
-            var curretlyLoggedInUserId = User.Claims.ToList()[0].Value;
+            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
 
-            var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
+            //var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
+            var results = await fileRepository.GetFilesByUserAsync (Guid.Parse(curretlyLoggedInUserId));
+            
 
             return View(results);
         }
@@ -97,12 +99,12 @@ namespace W3SHARE.Controllers
                 {
                     FileId = Guid.NewGuid(),
                     UserId = Guid.Parse(curretlyLoggedInUserId), //file.UserId,
-                    AlbumId = Guid.NewGuid(), //file.AlbumId,
+                    AlbumId = null, //Guid.NewGuid(), //Will be empty until album is linked
                     LastModifiedBy = file.LastModifiedBy,
-                    Url = file.Url,
+                    Url = file.Url, //CHANGE TO SELECTED VALUE 
                     DateModified = file.DateModified,
-                    ContentType = file.ContentType,
-                    DateCreated = file.DateCreated
+                    ContentType = file.ContentType, //CHANGE TO EXTENSION OF PATH
+                    DateCreated = DateTime.Now
                 };
 
                 Metadata metadataModel = new Metadata()
@@ -115,9 +117,16 @@ namespace W3SHARE.Controllers
                     CaptureDate = file.CaptureDate
                 };
 
+                Access access = new Access()
+                {
+                    AccessId = Guid.NewGuid(),
+                    FileId = fileModel.FileId,
+                    UserId = Guid.Parse(curretlyLoggedInUserId)
+                };
+
                 FileDomainlogic fileDomainlogic = new FileDomainlogic();
 
-                var result = fileDomainlogic.UploadFile(fileModel,metadataModel,path);
+                var result = fileDomainlogic.UploadFile(fileModel,metadataModel,access,path);
                 
                 return RedirectToAction(nameof(Index));
             }

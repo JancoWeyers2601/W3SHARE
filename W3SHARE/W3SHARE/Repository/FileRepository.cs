@@ -104,27 +104,43 @@ namespace W3SHARE.Repository
             }
         }
 
-
+        //Get all files user has access to
         public async Task<List<File>> GetFilesByAccessAsync(Guid userId)
         {
+            var Files = new List<File>();
+
             try
             {
-                var results = await _context.File.Join(
-                                _context.Access,
-                                file => file.FileId,
-                                access => access.FileId,
-                                (file, access) => new
-                                {
-                                    File = file,
-                                    Access = access
-                                })
-                                //.Where(con => con.Access.UserId == userId)
-                                //.Select(con => con.File)
+                var results =   await _context.File
+                                .Where(File => File.UserId == userId)
                                 .ToListAsync();
 
-                return new List<File>();//results;
+                return results ;
             }
             catch(Exception e)
+            {
+                return new List<File>();
+            }
+        }
+
+        //Get all files that belongs to user
+        public async Task<List<File>> GetFilesByUserAsync(Guid userId)
+        {
+
+
+            try
+            {
+                var results = from access in _context.Access
+                              join file in _context.File on access.FileId equals file.FileId
+                              where access.UserId == userId
+                              select file;
+
+                List<File> lst = new List<File>();
+                lst = results.ToList();
+
+                return lst;
+            }
+            catch (Exception e)
             {
                 return new List<File>();
             }

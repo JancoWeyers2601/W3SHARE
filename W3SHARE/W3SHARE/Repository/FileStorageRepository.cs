@@ -45,7 +45,7 @@ namespace W3SHARE.Repository
 
         public bool DownloadFileFromBlob (string fileName)
         {
-            var downloadPath = @"C:\Users\janco\Documents\ff846d75-28e5-4303-ac0d-9bb74ddb28a2.png";
+            var downloadPath = @"C:\Users\janco\Downloads\ff846d75-28e5-4303-ac0d-9bb74ddb28a2.png";
             //var downloadPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + fileName);
 
             try
