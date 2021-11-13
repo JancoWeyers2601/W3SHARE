@@ -7,22 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using W3SHARE.Data;
 using W3SHARE.Models;
+using W3SHARE.Repository;
 
 namespace W3SHARE.Controllers
 {
     public class AlbumController : Controller
     {
-        private readonly W3SHAREContext _context;
-
-        public AlbumController(W3SHAREContext context)
-        {
-            _context = context;
-        }
+        AlbumRepository albumRepository = new AlbumRepository();
 
         // GET: Album
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Album.ToListAsync());
+
+            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
+
+            return View( await albumRepository.GetAlbumByUserAsync(Guid.Parse(curretlyLoggedInUserId)));
         }
 
         // GET: Album/Details/5
@@ -33,8 +32,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Album
-                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            var album = await albumRepository.GetAlbumByIdAsync(id);
+
             if (album == null)
             {
                 return NotFound();
@@ -56,11 +55,15 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AlbumId,CreatedBy,Name,Description,DateCreated")] Album album)
         {
+            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
+
             if (ModelState.IsValid)
             {
                 album.AlbumId = Guid.NewGuid();
-                _context.Add(album);
-                await _context.SaveChangesAsync();
+                album.CreatedBy = Guid.Parse(curretlyLoggedInUserId);
+
+                var result = await albumRepository.CreateAlbumAsync(album);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(album);
@@ -74,7 +77,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Album.FindAsync(id);
+            var album = await albumRepository.GetAlbumByIdAsync(id);
+
             if (album == null)
             {
                 return NotFound();
@@ -98,8 +102,7 @@ namespace W3SHARE.Controllers
             {
                 try
                 {
-                    _context.Update(album);
-                    await _context.SaveChangesAsync();
+                    var result = await albumRepository.UpdateAlbumAsync(album);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +128,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var album = await _context.Album
-                .FirstOrDefaultAsync(m => m.AlbumId == id);
+            var album = await albumRepository.GetAlbumByIdAsync(id);
+
             if (album == null)
             {
                 return NotFound();
@@ -140,15 +143,14 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var album = await _context.Album.FindAsync(id);
-            _context.Album.Remove(album);
-            await _context.SaveChangesAsync();
+            var result = await albumRepository.DeleteAlbumAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool AlbumExists(Guid id)
         {
-            return _context.Album.Any(e => e.AlbumId == id);
+            return albumRepository.AlbumExists(id);
         }
     }
 }

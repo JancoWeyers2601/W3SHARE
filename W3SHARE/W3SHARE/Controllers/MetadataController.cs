@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using W3SHARE.Data;
 using W3SHARE.Models;
+using W3SHARE.Repository;
 
 namespace W3SHARE.Controllers
 {
     public class MetadataController : Controller
     {
-        private readonly W3SHAREContext _context;
-
-        public MetadataController(W3SHAREContext context)
-        {
-            _context = context;
-        }
+        MetadataRepository metadataRepository = new MetadataRepository();
 
         // GET: Metadata
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Metadata.ToListAsync());
+            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
+
+            //var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
+            var results = await metadataRepository.GetMetadataByUserAsync(Guid.Parse(curretlyLoggedInUserId));
+
+            return View(results);
         }
 
         // GET: Metadata/Details/5
@@ -33,8 +34,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var metadata = await _context.Metadata
-                .FirstOrDefaultAsync(m => m.MetadataId == id);
+            var metadata = await metadataRepository.GetMetadataByIdAsync(id);
+
             if (metadata == null)
             {
                 return NotFound();
@@ -58,9 +59,8 @@ namespace W3SHARE.Controllers
         {
             if (ModelState.IsValid)
             {
-                metadata.MetadataId = Guid.NewGuid();
-                _context.Add(metadata);
-                await _context.SaveChangesAsync();
+                var result = metadataRepository.CreateMetadataAsync(metadata);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(metadata);
@@ -74,7 +74,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var metadata = await _context.Metadata.FindAsync(id);
+            var metadata = await metadataRepository.GetMetadataByIdAsync(id);
+
             if (metadata == null)
             {
                 return NotFound();
@@ -98,8 +99,7 @@ namespace W3SHARE.Controllers
             {
                 try
                 {
-                    _context.Update(metadata);
-                    await _context.SaveChangesAsync();
+                    var result = await metadataRepository.UpdateMetadataAsync(metadata);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +125,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var metadata = await _context.Metadata
-                .FirstOrDefaultAsync(m => m.MetadataId == id);
+            var metadata = await metadataRepository.GetMetadataByIdAsync(id);
+
             if (metadata == null)
             {
                 return NotFound();
@@ -140,15 +140,16 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var metadata = await _context.Metadata.FindAsync(id);
-            _context.Metadata.Remove(metadata);
-            await _context.SaveChangesAsync();
+            var result = await metadataRepository.DeleteMetadataAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool MetadataExists(Guid id)
         {
-            return _context.Metadata.Any(e => e.MetadataId == id);
+            var result = metadataRepository.MetadataExists(id);
+
+            return result ;
         }
     }
 }

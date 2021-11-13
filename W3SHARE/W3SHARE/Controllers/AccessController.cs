@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using W3SHARE.Data;
 using W3SHARE.Models;
+using W3SHARE.Repository;
 
 namespace W3SHARE.Controllers
 {
     public class AccessController : Controller
     {
-        private readonly W3SHAREContext _context;
 
-        public AccessController(W3SHAREContext context)
-        {
-            _context = context;
-        }
+        AccessRepository accessRepository = new AccessRepository();
 
         // GET: Access
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Access.ToListAsync());
+            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
+
+            var results = await accessRepository.GetAccessByUserAsync(Guid.Parse(curretlyLoggedInUserId));
+
+            return View(results);
         }
 
         // GET: Access/Details/5
@@ -33,8 +34,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var access = await _context.Access
-                .FirstOrDefaultAsync(m => m.AccessId == id);
+            var access = await accessRepository.GetAccessByIdAsync(id); 
+
             if (access == null)
             {
                 return NotFound();
@@ -59,8 +60,9 @@ namespace W3SHARE.Controllers
             if (ModelState.IsValid)
             {
                 access.AccessId = Guid.NewGuid();
-                _context.Add(access);
-                await _context.SaveChangesAsync();
+
+                var result = await accessRepository.CreateAccessAsync(access);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(access);
@@ -74,7 +76,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var access = await _context.Access.FindAsync(id);
+            var access = await accessRepository.GetAccessByIdAsync(id);
+
             if (access == null)
             {
                 return NotFound();
@@ -98,8 +101,7 @@ namespace W3SHARE.Controllers
             {
                 try
                 {
-                    _context.Update(access);
-                    await _context.SaveChangesAsync();
+                    var result = await accessRepository.UpdateAccessAsync(access);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,9 +126,9 @@ namespace W3SHARE.Controllers
             {
                 return NotFound();
             }
+            //TODO: fix delete parameter being sent same as file repo delete issue
+            var access = await accessRepository.GetAccessByIdAsync(id);
 
-            var access = await _context.Access
-                .FirstOrDefaultAsync(m => m.AccessId == id);
             if (access == null)
             {
                 return NotFound();
@@ -140,15 +142,15 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var access = await _context.Access.FindAsync(id);
-            _context.Access.Remove(access);
-            await _context.SaveChangesAsync();
+
+            var result = await accessRepository.DeleteAccessAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool AccessExists(Guid id)
         {
-            return _context.Access.Any(e => e.AccessId == id);
+            return accessRepository.AccessExists(id);
         }
     }
 }

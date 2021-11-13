@@ -16,13 +16,7 @@ namespace W3SHARE.Controllers
 {
     public class FileController : Controller
     {
-        private readonly W3SHAREContext _context;
         private FileRepository fileRepository = new FileRepository();
-
-        public FileController(W3SHAREContext context)
-        {
-            _context = context;
-        }
 
         // GET: File
         public async Task<IActionResult> Index()
@@ -45,8 +39,8 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var file = await _context.File
-                .FirstOrDefaultAsync(m => m.FileId == id);
+            var file = await fileRepository.GetImageByIdAsync(id);
+
             if (file == null)
             {
                 return NotFound();
@@ -72,7 +66,6 @@ namespace W3SHARE.Controllers
             {
                 file.FileId = Guid.NewGuid();
 
-                FileRepository fileRepository = new FileRepository();
                 var result = await fileRepository.CreateImageAsync(file);
 
                 return RedirectToAction(nameof(Index));
@@ -143,7 +136,6 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            FileRepository fileRepository = new FileRepository();
             var file = await fileRepository.GetImageByIdAsync(id);
 
             //kopel aan repo
@@ -174,7 +166,6 @@ namespace W3SHARE.Controllers
             {
                 try
                 {
-                    FileRepository fileRepository = new FileRepository();
                     var result = await fileRepository.UpdateImageAsync(file);
 
                     //update image async
@@ -203,8 +194,9 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var file = await _context.File
-                .FirstOrDefaultAsync(m => m.FileId == id);
+            //TODO: Fix value being send to id (As delt)
+            var file = await fileRepository.GetImageByIdAsync((Guid)id); 
+
             if (file == null)
             {
                 return NotFound();
@@ -218,15 +210,16 @@ namespace W3SHARE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var file = await _context.File.FindAsync(id);
-            _context.File.Remove(file);
-            await _context.SaveChangesAsync();
+            var result = await fileRepository.DeleteImageAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool FileExists(Guid id)
         {
-            return _context.File.Any(e => e.FileId == id);
+            var file = fileRepository.ImageExists(id);
+
+            return file;
         }
     }
 }

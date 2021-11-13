@@ -28,7 +28,7 @@ namespace W3SHARE.Repository
 
         //GET FILE BY GUID ID
         public async Task<File> GetImageByIdAsync(Guid? id)
-        {
+        {      
             var result = await _context.File.FirstOrDefaultAsync(m => m.FileId == id);
 
             return result;
