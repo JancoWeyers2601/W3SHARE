@@ -29,8 +29,9 @@ namespace W3SHARE.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+                //TODO: UPDATE CONNECTION STRING TO READ FROM appsettings.json
 #warning        To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-LBGUC1G;Initial Catalog=W3SHARE;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseSqlServer("Server=tcp:w3share-prod.database.windows.net,1433;Initial Catalog=W3SHARE;Persist Security Info=False;User ID=w3share_admin;Password=9801265223083@Nwu;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -82,7 +83,12 @@ namespace W3SHARE.Data
 
                 entity.Property(e => e.Url)
                     .HasColumnName("URL")
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("Name")
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");

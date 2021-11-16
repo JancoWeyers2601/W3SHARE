@@ -44,6 +44,7 @@ namespace W3SHARE.Controllers
             return View(access);
         }
 
+        
         // GET: Access/Create
         public IActionResult Create()
         {
@@ -126,7 +127,6 @@ namespace W3SHARE.Controllers
             {
                 return NotFound();
             }
-            //TODO: fix delete parameter being sent same as file repo delete issue
             var access = await accessRepository.GetAccessByIdAsync(id);
 
             if (access == null)

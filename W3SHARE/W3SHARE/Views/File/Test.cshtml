@@ -1,0 +1,53 @@
+@model IEnumerable<W3SHARE.Models.File>
+
+<style>
+    .container {
+        position: relative;
+    }
+
+    .topright {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        opacity: 0.3;
+    }
+</style>
+
+
+
+@foreach(var item in Model)
+{ 
+    <div>
+        <a asp-controller="File" asp-action="Index">
+            <div class="container">
+                <img src= @item.Url class="img-responsive">
+                <div class="topright">
+                    @*TODO: Add images for each option*@
+                    <a asp-controller="File" asp-action="Delete" asp-route-id="@item.FileId">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png" style="height:20px;width:20px;" />
+                    </a>
+                    <a asp-controller="File" asp-action="Download" asp-route-blobName="@item.Name">
+                        <img src="~/Images/collateral/download.svg" style="height:20px;width:20px;" />
+                    </a>
+                    <a asp-controller="File" asp-action="Details" asp-route-id="@item.FileId">
+                        <img src="~/Images/collateral/view.png" style="height:20px;width:20px;" />
+                    </a>
+                    <a asp-controller="Metadata" asp-action="Details" asp-route-id="@item.FileId">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png" style="height:20px;width:20px;" />
+                    </a>
+                    <a asp-controller="Access" asp-action="Create" asp-route-id="@item.FileId">
+                        <img src="~/Images/collateral/share.png" style="height:20px;width:20px;" />
+                    </a>
+                </div>
+            </div>
+        </a>
+    </div>
+    <br />
+}
+

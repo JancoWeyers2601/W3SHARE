@@ -20,9 +20,7 @@ namespace W3SHARE.Domain_Logic
 
             try
             {
-                //Break up file path
-                var filePathSplit = filePath.Split("\\");
-                string fileName = filePathSplit[filePathSplit.Length - 1];
+                string fileName = fileModel.Name;
 
                 //Upload file to BLOB 
                 //string blobURL = fileStorageRepository.WriteFileToBlob(filePath,fileName);

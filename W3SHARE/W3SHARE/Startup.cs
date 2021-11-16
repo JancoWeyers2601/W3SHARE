@@ -14,6 +14,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using W3SHARE.Data;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace W3SHARE
 {
@@ -40,15 +43,25 @@ namespace W3SHARE
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddSingleton<IFileProvider>(
-            new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+            ////FOR IFORM FILE
+            //services.AddSingleton<IFileProvider>(
+            //new PhysicalFileProvider(
+            //    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
-            services.AddMvc();
+            //services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+        //This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -70,12 +83,7 @@ namespace W3SHARE
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -84,6 +92,8 @@ namespace W3SHARE
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            
 
 
         }

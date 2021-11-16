@@ -27,7 +27,6 @@ namespace W3SHARE.Repository
         //GET Metadata BY USER ID 
         public async Task<List<Metadata>> GetMetadataByUserAsync(Guid userId)
         {
-            //TODO: moet gejoin word van user na file na metadata
             try
             {
                 var results = from access in _context.Access
@@ -51,6 +50,14 @@ namespace W3SHARE.Repository
         public async Task<Metadata> GetMetadataByIdAsync(Guid? id)
         {
             var result = await _context.Metadata.FirstOrDefaultAsync(m => m.MetadataId == id);
+
+            return result;
+        }
+
+        //GET Metadata BY GUID ID
+        public async Task<Metadata> GetMetadataByFileIdAsync(Guid? id)
+        {
+            var result = await _context.Metadata.FirstOrDefaultAsync(m => m.FileId == id);
 
             return result;
         }

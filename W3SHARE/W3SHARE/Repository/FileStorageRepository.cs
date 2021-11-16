@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ namespace W3SHARE.Repository
 {
     public class FileStorageRepository
     {
-        // TO DO: Add Connection String and move into secure storage
+        //TODO: UPDATE CONNECTION STRING TO READ FROM appsettings.json
         string connectionString = "DefaultEndpointsProtocol=https;AccountName=w3share;AccountKey=bqNgzLtSaSMLeEqS9KUK9Q/YB8bYL8AQ2q/jC7KDZzBHtvZdSCBZRDHnW4x/TXHXbA6qcl1RF7XDH/ZIE0Rkwg==;EndpointSuffix=core.windows.net";
         string container = "data";
 
@@ -43,6 +44,8 @@ namespace W3SHARE.Repository
             return blobClient.Uri.ToString();
         }
 
+        //TODO//:fix downloads https://tutexchange.com/uploading-download-and-delete-files-in-azure-blob-storage-using-asp-net-core-3-1/
+
         public bool DownloadFileFromBlob (string fileName)
         {
             var downloadPath = @"C:\Users\janco\Downloads\ff846d75-28e5-4303-ac0d-9bb74ddb28a2.png";
@@ -50,7 +53,8 @@ namespace W3SHARE.Repository
 
             try
             {
-                var con = new BlobClient(connectionString, container, fileName).DownloadTo(downloadPath);
+                var content = new BlobClient(connectionString, container, fileName).DownloadTo(downloadPath);
+
                 return true;
             }
             catch (Exception e)

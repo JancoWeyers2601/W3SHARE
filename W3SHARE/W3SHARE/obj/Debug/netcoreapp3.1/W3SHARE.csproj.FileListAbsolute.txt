@@ -452,3 +452,8 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Azure.
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\System.Memory.Data.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\File\Capture.cshtml.g.cs
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\AspNetCore.Mvc.Routes.DebuggingLoggerMiddleware.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Debug\netcoreapp3.1\Razor\Views\File\Test.cshtml.g.cs
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
