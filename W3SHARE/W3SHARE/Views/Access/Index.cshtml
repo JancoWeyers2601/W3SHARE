@@ -4,14 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Users with access to the photo</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add access</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            //Fix to only display email addresses 
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
@@ -22,6 +23,7 @@
         </tr>
     </thead>
     <tbody>
+
 @foreach (var item in Model) {
         <tr>
             <td>

@@ -192,3 +192,6 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\W3SH
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\AspNetCore.Mvc.Routes.DebuggingLoggerMiddleware.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\Razor\Views\File\Content.cshtml.g.cs
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\Razor\Views\File\Feed.cshtml.g.cs

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<W3SHARE.Models.File>
+
+<style>
+    .container {
+        position: relative;
+    }
+
+    .topright {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        /* opacity: 0.3;*/
+    }
+</style>
+
+@{ if (User.Identity.IsAuthenticated)
+    {
+
+        @foreach (var item in Model)
+        {
+
+            <div class=" rounded w-25 p-3 border border-5 border-dark">
+                <a asp-controller="File" asp-action="Index">
+                    <div class="container">
+                        <img src=@item.Url class="img-responsive">
+                        <div class="topright">
+                            <a asp-controller="File" asp-action="Download" asp-route-blobName="@item.Name">
+                                <img src="~/Images/collateral/download.svg" style="height:20px;width:20px;" />
+                            </a>
+                            @*TODO: add metadata model and be able to EDIT metadata details*@
+                            <a asp-controller="MetaData" asp-action="Edit" asp-route-id="@item.FileId">
+                                <img src="~/Images/collateral/view.png" style="height:20px;width:20px;" />
+                            </a>
+                            <a asp-controller="Access" asp-action="index" asp-route-id="@item.FileId">
+                                <img src="~/Images/collateral/Feed.jpg" style="height:20px;width:20px;" />
+                            </a>
+                            <a asp-controller="File" asp-action="Delete" asp-route-id="@item.FileId">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png" style="height:20px;width:20px;" />
+                            </a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <br />
+        }
+
+    }
+}

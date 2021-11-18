@@ -24,7 +24,6 @@ namespace W3SHARE.Domain_Logic
 
                 //Upload file to BLOB 
                 //string blobURL = fileStorageRepository.WriteFileToBlob(filePath,fileName);
-                //bool downloaded = fileStorageRepository.DownloadFileFromBlob(fileName);
 
                 //Update DB
                 bool result = await fileRepository.CreateImageAsync(fileModel);

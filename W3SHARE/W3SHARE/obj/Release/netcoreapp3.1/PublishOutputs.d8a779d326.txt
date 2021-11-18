@@ -1,8 +1,11 @@
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\W3SHARE.exe
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\site.css
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\favicon.ico
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\collateral\download.svg
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\collateral\Feed.jpg
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\collateral\share.png
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\collateral\view.png
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\Layout\Untitled.png
-C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Images\Temp\Boy.png
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\site.js
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -112,6 +115,7 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubT
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\System.Runtime.Caching.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\System.Text.Encodings.Web.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.WindowsAzure.Storage.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\es\Microsoft.CodeAnalysis.resources.dll

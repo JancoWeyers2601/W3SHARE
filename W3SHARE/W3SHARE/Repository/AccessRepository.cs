@@ -91,7 +91,9 @@ namespace W3SHARE.Repository
             try
             {
                 var result = await _context.Access.FindAsync(id);
+
                 _context.Access.Remove(result);
+
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -101,6 +103,35 @@ namespace W3SHARE.Repository
                 return false;
             }
         }
+
+        //DELETE
+        public async Task<Boolean> DeleteAccessByFileAsync(Guid fileId)
+        {
+
+            //TODO: Fix as access does not delete
+            try
+            {
+                var accessId = from access in _context.Access
+                             join file in _context.File on access.FileId equals file.FileId
+                             where file.FileId == fileId
+                             select access.AccessId;
+
+
+                var result = await _context.Access.FindAsync(accessId);
+
+                _context.Access.Remove(result);
+
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
 
 
     }

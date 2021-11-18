@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<style>
+    .navbar-center {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+    }
+</style>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,45 +20,72 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">W3SHARE</a>
+                <a class="navbar-brand" asp-area="" asp-controller="File" asp-action="Feed">W3SHARE</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
 
-                        @{ if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="index">Access</a>
-                                </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="index">Album</a>
-                                </li>
+                    @{ if (User.Identity.IsAuthenticated)
+                        {
+                                        <ul class="navbar-nav flex-grow-1">
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="index">File</a>
-                                </li>
+                                            @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="index">Access</a>
+        </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Metadata" asp-action="index">Metadata</a>
-                                </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="index">Album</a>
+        </li>
 
-                                <li class="nav-item">
-                                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                                    <a asp-area="" asp-controller="File" asp-action="Index" >search</a> @*TODO: add image for search*@
-                                </li>
-                            }
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="index">File</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Metadata" asp-action="index">Metadata</a>
+        </li>*@
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="Feed">Feed</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="Content">My photos</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="File" asp-action="Capture">Capture</a>
+                                            </li>
+
+
+
+
+                                            <!--<li class="nav-item">
+    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+    <a asp-area="" asp-controller="File" asp-action="Index">search</a>-->
+                                            @*TODO: add image for search*@
+                                            <!--</li>-->
+                                        </ul>
+
+                            <form class="form-inline ">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button asp-area="" asp-controller="File" asp-action="Feed" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+
+
                         }
+                    }
 
-                    </ul>
 
-                    </div>
+
+
+                        </div>
                 </div>
         </nav>
+
     </header>
     <div class="container-fluid">
         <main role="main" class="pb-3">
