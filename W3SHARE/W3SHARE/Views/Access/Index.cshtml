@@ -7,18 +7,23 @@
 <h1>Users with access to the photo</h1>
 
 <p>
-    <a asp-action="Create">Add access</a>
+    <a asp-action="Create">Share with another user</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            //Fix to only display email addresses 
+            //Fix to only display email addresses
             <th>
                 @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FileId)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -32,6 +37,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FileId)
             </td>
+
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AccessId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.AccessId">Details</a> |

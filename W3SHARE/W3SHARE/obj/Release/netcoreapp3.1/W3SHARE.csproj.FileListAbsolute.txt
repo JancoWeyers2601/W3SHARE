@@ -195,3 +195,5 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Micr
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\Razor\Views\File\Content.cshtml.g.cs
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\Razor\Views\File\Feed.cshtml.g.cs
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\bin\Release\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\Razor\Views\Access\Share.cshtml.g.cs

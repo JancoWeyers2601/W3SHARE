@@ -49,6 +49,7 @@ C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubT
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Azure.Core.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Azure.Storage.Blobs.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Azure.Storage.Common.dll
+C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNet.Identity.Core.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\janco\Desktop\New folder\W3SHARE\W3SHARE\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
