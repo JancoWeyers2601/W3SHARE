@@ -34,11 +34,11 @@
                                     <img src="~/Images/collateral/download.svg" style="height:20px;width:20px;" />
                                 </a>
                                 @*TODO: add metadata model and be able to EDIT metadata details*@
-                                <a asp-controller="MetaData" asp-action="Edit" asp-route-id="@item.FileId">
+                                <a asp-controller="Metadata" asp-action="Details" asp-route-id="@item.FileId">
                                     <img src="~/Images/collateral/view.png" style="height:20px;width:20px;" />
                                 </a>
-                                <a asp-controller="Access" asp-action="index" asp-route-id="@item.FileId">
-                                    <img src="~/Images/collateral/Feed.jpg" style="height:20px;width:20px;" />
+                                <a asp-controller="Access" asp-action="Share" asp-route-fileId="@item.FileId">
+                                    <img src="~/Images/collateral/share.png" style="height:20px;width:20px;" />
                                 </a>
                                 <a asp-controller="File" asp-action="Delete" asp-route-id="@item.FileId">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/How_to_use_icon.svg/1200px-How_to_use_icon.svg.png" style="height:20px;width:20px;" />

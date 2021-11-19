@@ -34,7 +34,7 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var metadata = await metadataRepository.GetMetadataByIdAsync(id);
+            var metadata = await metadataRepository.GetMetadataByFileIdAsync(id);
 
             if (metadata == null)
             {
@@ -75,7 +75,7 @@ namespace W3SHARE.Controllers
                 return NotFound();
             }
 
-            var metadata = await metadataRepository.GetMetadataByIdAsync(id);
+            var metadata = await metadataRepository.GetMetadataByFileIdAsync(id);
 
             if (metadata == null)
             {
@@ -89,12 +89,12 @@ namespace W3SHARE.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("MetadataId,FileId,GeoLocation,Tags,CaptureBy,CaptureDate")] Metadata metadata)
+        public async Task<IActionResult> Edit([Bind("MetadataId,FileId,GeoLocation,Tags,CaptureBy,CaptureDate")] Metadata metadata)
         {
-            if (id != metadata.MetadataId)
-            {
-                return NotFound();
-            }
+            //if (id != metadata.MetadataId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {

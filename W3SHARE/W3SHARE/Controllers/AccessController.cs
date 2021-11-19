@@ -69,6 +69,40 @@ namespace W3SHARE.Controllers
             return View(access);
         }
 
+
+        // GET: Access/Share
+        public IActionResult Share(Guid fileId)
+        {
+            Access access = new Access();
+
+            access.AccessId = Guid.NewGuid();
+            access.FileId = fileId; 
+
+            return View(access);
+        }
+
+        // POST: Access/Share
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Share([Bind("AccessId,UserId,FileId,UserEmail")] Access access)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRepository userRepository = new UserRepository();
+                var userResult = userRepository.GetUserByEmail(access.UserEmail);
+
+                access.AccessId = Guid.NewGuid();
+                access.UserId = Guid.Parse(userResult.Id);
+
+                var result = await accessRepository.CreateAccessAsync(access);
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(access);
+        }
+
         // GET: Access/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {

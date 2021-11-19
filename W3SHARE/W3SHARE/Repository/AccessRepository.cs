@@ -107,17 +107,15 @@ namespace W3SHARE.Repository
         //DELETE
         public async Task<Boolean> DeleteAccessByFileAsync(Guid fileId)
         {
-
-            //TODO: Fix as access does not delete
             try
             {
-                var accessId = from access in _context.Access
-                             join file in _context.File on access.FileId equals file.FileId
-                             where file.FileId == fileId
-                             select access.AccessId;
+                //var accessId = from access in _context.Access
+                //             join file in _context.File on access.FileId equals file.FileId
+                //             where file.FileId == fileId
+                //             select access.AccessId;
 
 
-                var result = await _context.Access.FindAsync(accessId);
+                var result = _context.Access.Where(e => e.FileId == fileId).FirstOrDefault();
 
                 _context.Access.Remove(result);
 

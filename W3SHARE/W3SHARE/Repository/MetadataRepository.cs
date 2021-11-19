@@ -90,7 +90,7 @@ namespace W3SHARE.Repository
 
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

@@ -269,9 +269,10 @@ namespace W3SHARE.Controllers
             //DELETE File in DB
             var result_file = await fileRepository.DeleteImageAsync(id);
 
-
-            //DELETE ACCESS RECORD in DB
             var result_access = await accessRepository.DeleteAccessByFileAsync(id);
+
+            //TODO:DELETE METADATA RECORD in DB
+            //var result_access = await accessRepository.DeleteAccessByFileAsync(id);
 
             //DELETE FROM BLOB
 
@@ -311,45 +312,54 @@ namespace W3SHARE.Controllers
         {
             FileRepository fileRepository = new FileRepository();
 
-            var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
-
-            var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
-
-
-            // this can be deleted and revert to results when returning the view
-            //List <File> tempResults = new List<File>();
-
-            //foreach (var item in results)
-            //{
-            //    tempResults.Append(new File()
-            //    {
-            //        FileId = item.FileId,
-            //        AlbumId = item.AlbumId,
-            //        ContentType = item.ContentType,
-            //        DateCreated = item.DateCreated,
-            //        DateModified = item.DateModified,
-            //        LastModifiedBy = item.LastModifiedBy,
-            //        UserId = item.UserId,
-            //        Url = "https://i.pinimg.com/originals/22/ff/08/22ff08bc265e47113a9627114684d7d1.jpg"
-            //    });
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
 
 
-            //TODO: Fix as it only returns the null no matter what the search string is 
-            //searchString = ".";
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    tempResults = tempResults.Where(s => s.FileId.ToString().Contains(searchString) ||
-            //                          s.AlbumId.ToString().Contains(searchString) ||
-            //                          s.ContentType.ToString().Contains(searchString) ||
-            //                          s.DateCreated.ToString().Contains(searchString) ||
-            //                          s.DateModified.ToString().Contains(searchString) ||
-            //                          s.LastModifiedBy.ToString().Contains(searchString) ||
-            //                          s.UserId.ToString().Contains(searchString) ||
-            //                          s.Url.ToString().Contains(searchString)).ToList();
-            //}
 
-            return View(results);
+                var curretlyLoggedInUserId = (User.Claims.ToList()[0].Value).ToUpper();
+
+                var results = await fileRepository.GetFilesByAccessAsync(Guid.Parse(curretlyLoggedInUserId));
+
+                List<File> tempResults = new List<File>();
+
+                foreach (var item in results)
+                {
+                    var tempFile = new File()
+                    {
+                        FileId = item.FileId,
+                        AlbumId = item.AlbumId,
+                        ContentType = item.ContentType,
+                        DateCreated = item.DateCreated,
+                        DateModified = item.DateModified,
+                        LastModifiedBy = item.LastModifiedBy,
+                        Name = item.Name,
+                        UserId = item.UserId,
+                        Url = "https://i.pinimg.com/originals/22/ff/08/22ff08bc265e47113a9627114684d7d1.jpg"
+                    };
+
+                    tempResults.Add(tempFile);
+                }
+
+
+            //TODO: Fix as it only returns the null no matter what the search string is
+
+            searchString = ".";
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    tempResults = tempResults.Where(s => s.FileId.ToString().Contains(searchString) ||
+                                          s.AlbumId.ToString().Contains(searchString) ||
+                                          s.ContentType.ToString().Contains(searchString) ||
+                                          s.DateCreated.ToString().Contains(searchString) ||
+                                          s.DateModified.ToString().Contains(searchString) ||
+                                          s.LastModifiedBy.ToString().Contains(searchString) ||
+                                          s.UserId.ToString().Contains(searchString) ||
+                                          s.Url.ToString().Contains(searchString)).ToList();
+                }
+                return View(results);
+            }
+            return View();
+            
 
         }
 

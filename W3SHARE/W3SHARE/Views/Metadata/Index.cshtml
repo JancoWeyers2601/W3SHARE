@@ -12,9 +12,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.FileId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.GeoLocation)
             </th>
@@ -33,9 +33,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.FileId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.GeoLocation)
             </td>
